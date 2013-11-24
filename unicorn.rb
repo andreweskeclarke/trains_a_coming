@@ -1,5 +1,5 @@
 #set path to app that will be used to configure unicorn, 
-@dir = "./"
+@dir = "/home/andrew/trains_a_coming/"
 
 worker_processes 2
 working_directory @dir
