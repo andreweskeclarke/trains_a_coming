@@ -18,7 +18,7 @@ get '/' do
   cta_response = request_train_arrival_time
   arrival_time = parse_time_from cta_response
   arrival_time_utc = convert_cta_time_to_utc arrival_time
-  time_diff = arrival_time - Time.now.utc
+  time_diff = arrival_time_utc.utc - Time.now.utc
   json({:time_to_next_train => time_diff})
 end
 
