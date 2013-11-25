@@ -18,8 +18,8 @@ get '/' do
   cta_response = request_train_arrival_time
   arrival_time = parse_time_from cta_response
   arrival_time_utc = convert_cta_time_to_utc arrival_time
-  time_diff = arrival_time_utc.utc - Time.now.utc
-  json({:time_to_next_train => time_diff})
+  time_diff = arrival_time_utc - Time.now.utc
+  json({:time_to_next_train => time_diff.to_i})
 end
 
 def request_train_arrival_time
@@ -38,8 +38,8 @@ def parse_time_from response
 end
 
 def convert_cta_time_to_utc time
-  cta_hours_since_epoch = (time.to_f / (60 * 60)).floor
-  utc_hours_since_epoch = (Time.now.utc.to_f / (60 * 60)).floor
+  cta_hours_since_epoch = (time.to_f / (60.0 * 60.0)).floor
+  utc_hours_since_epoch = (Time.now.utc.to_f / (60.0 * 60.0)).floor
   hours_offset = utc_hours_since_epoch - cta_hours_since_epoch
   time + (hours_offset * 60 * 60)
 end
